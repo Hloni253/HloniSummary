@@ -1,0 +1,51 @@
+{% extends 'Home/header.html' %}
+
+{% block content %}
+
+<div class="hloni">
+<form method='POST'>
+	{% csrf_token %}
+        <fieldset>
+          <legend>Summarize A Website</legend>
+          <div class="inner-form">
+            <div class="input-field">
+			<button class="btn-search" type="submit">
+			  <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-forward-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+				  <path d="M9.77 12.11l4.012-2.953a.647.647 0 0 0 0-1.114L9.771 5.09a.644.644 0 0 0-.971.557V6.65H2v3.9h6.8v1.003c0 .505.545.808.97.557z"/>
+				</svg>
+              </button>
+              <input name="link" type="text"  placeholder="Link">
+			   <div class="form-group">
+			   <hr>
+			  </div>
+            </div>
+          </div>
+		  {% if my_user != None %}
+		  <div class="suggestion-wrap">
+			{% for summary in sums %}
+				<span><a href="{{ summary.get_summary }}">{{ summary }}</a></span><br>
+			{% endfor %}
+			</div>
+		  {% endif %}
+        </fieldset>
+</form>
+</div>
+
+<div class="hloni">
+<form method='POST'>
+	{% csrf_token %}
+			<legend>Summarize Text</legend>
+			<textarea name="text" class="form-control" id="exampleFormControlTextarea1" rows="5"></textarea>
+			<button type="submit" class="btn btn-info">Create</button>
+
+{% if my_user != None %}
+		  <div class="suggestion-wrap">
+			{% for summary in sums_t %}
+				<span><a href="{{ summary.get_summary }}">{{ summary }}</a></span><br>
+			{% endfor %}
+			</div>
+		  {% endif %}
+</form>
+</div>
+
+{% endblock %}
